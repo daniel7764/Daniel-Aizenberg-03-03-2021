@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
 import { Item } from 'Models/Item';
-import { allStores } from 'App/commons/StoresList/StoresList';
+import { allStores } from 'App/Components/StoresList/StoresList';
 
 import { StoreItemsContextType } from './StoreItemsContextType';
 

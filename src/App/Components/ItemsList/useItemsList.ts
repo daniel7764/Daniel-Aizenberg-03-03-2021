@@ -10,6 +10,7 @@ import { StoreItemsContextType } from 'Context/StoreItemsContextType';
 const USD_SYMBOL = 'USD';
 const ILS_SYMBOL = 'ILS';
 const OK_STATUS = 200;
+const apiUrl = process.env.REACT_APP_API_URL;
 
 const useItemsList = (parameters: useItemsListInCome): useItemsListOutCome => {
     const { storeItems, setStoreItems } = useContext(StoreItemsContext) as StoreItemsContextType;
@@ -28,18 +29,26 @@ const useItemsList = (parameters: useItemsListInCome): useItemsListOutCome => {
     }
 
     const getCurrExChangeRates = async () => {
-        const apiResponse = await axios.get(
-            `https://api.exchangeratesapi.io/latest?base=${ILS_SYMBOL}&symbols=${USD_SYMBOL}`);
-        if(apiResponse.status !== OK_STATUS) {
-            Swal.fire({
-                icon: 'error',
-                title: 'Error in fetching exchange rates!'
-            });
-        } else {
-            const exchangeRateResponse: ExchangeRatesResponse = apiResponse.data;
-            exchangeRateResponse.rates.USD !== shekelToUSDExchangeRate &&
-            setShekelToUSDExchangeRate(exchangeRateResponse.rates.USD);
+        try {
+            const apiResponse = await axios.get(
+                `${apiUrl}?base=${ILS_SYMBOL}&symbols=${USD_SYMBOL}`);
+            if(apiResponse.status !== OK_STATUS) {
+                fetchingErrorMsg();
+            } else {
+                const exchangeRateResponse: ExchangeRatesResponse = apiResponse.data;
+                exchangeRateResponse.rates.USD !== shekelToUSDExchangeRate &&
+                setShekelToUSDExchangeRate(exchangeRateResponse.rates.USD);
+            }
+        } catch (exception) {
+            fetchingErrorMsg();
         }
+    }
+
+    const fetchingErrorMsg = () => {
+        return Swal.fire({
+            icon: 'error',
+            title: 'Error in fetching exchange rates!'
+        });
     }
 
     return { updateNotReceivedItemsList, getCurrExChangeRates };

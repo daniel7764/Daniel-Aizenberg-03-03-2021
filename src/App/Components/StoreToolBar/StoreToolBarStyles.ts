@@ -1,16 +1,13 @@
 import { makeStyles } from '@material-ui/core';
 
 const useStyles = makeStyles(() => ({
-    itemCard: {
+    toolBar: {
+        paddingLeft: '26vw',
         display: 'flex',
-        flexDirection: 'column',
-        marginTop: '2vh',
-        width: '16vw',
-    },
-    currencyData: {
-        display: 'flex',
+        justifyContent: 'space-evenly',
         flexDirection: 'row',
-    }
+        backgroundColor: 'rgb(25, 118, 210)',
+    },
 }));
 
 export default useStyles;

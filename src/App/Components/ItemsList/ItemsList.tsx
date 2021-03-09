@@ -3,25 +3,31 @@ import React, {useContext, useEffect, useState} from 'react';
 import useItemsList from './useItemsList';
 
 import { Item } from 'Models/Item';
+import useStyles from './ListStyles';
 import StoreItem from '../StoreItem/StoreItem';
 import {StoreItemsContext} from 'Context/StoreItemsContext';
 import {StoreItemsContextType} from 'Context/StoreItemsContextType';
 
+const apiInterval = process.env.REACT_APP_API_INTERVAL;
+
 const ItemsList: React.FC<Props> = (itemsListProps: Props): JSX.Element => {
+    const classes = useStyles();
     const { storeItems } = useContext(StoreItemsContext) as StoreItemsContextType;
     const [shekelToUSDExchangeRate, setShekelToUSDExchangeRate] = useState<number>(0);
     const { updateNotReceivedItemsList, getCurrExChangeRates } = useItemsList({ shekelToUSDExchangeRate, setShekelToUSDExchangeRate });
 
     useEffect((() => {
         getCurrExChangeRates();
-        const interval = setInterval(() => {
-            getCurrExChangeRates();
-        }, 10000);
-        return () => clearInterval(interval);
+        if(apiInterval) {
+            const interval = setInterval(() => {
+                getCurrExChangeRates();
+            }, Number(apiInterval));
+            return () => clearInterval(interval);
+        }
     }));
 
     return (
-        <div>
+        <div className={classes.mainList}>
             {
                 storeItems.map((singleItem: Item) =>
                     (itemsListProps.showButton ? !singleItem.isReceived : singleItem.isReceived) &&
