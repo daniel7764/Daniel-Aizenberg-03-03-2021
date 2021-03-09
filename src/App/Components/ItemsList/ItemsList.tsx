@@ -14,7 +14,7 @@ const ItemsList: React.FC<Props> = (itemsListProps: Props): JSX.Element => {
     const classes = useStyles();
     const { storeItems } = useContext(StoreItemsContext) as StoreItemsContextType;
     const [shekelToUSDExchangeRate, setShekelToUSDExchangeRate] = useState<number>(0);
-    const { updateNotReceivedItemsList, getCurrExChangeRates } = useItemsList({ shekelToUSDExchangeRate, setShekelToUSDExchangeRate });
+    const { updateNotReceivedItemsList, getCurrExChangeRates, getSortedItems } = useItemsList({ shekelToUSDExchangeRate, setShekelToUSDExchangeRate });
 
     useEffect((() => {
         getCurrExChangeRates();
@@ -29,7 +29,7 @@ const ItemsList: React.FC<Props> = (itemsListProps: Props): JSX.Element => {
     return (
         <div className={classes.mainList}>
             {
-                storeItems.map((singleItem: Item) =>
+                getSortedItems().map((singleItem: Item) =>
                     (itemsListProps.showButton ? !singleItem.isReceived : singleItem.isReceived) &&
                         <StoreItem
                             currItem={singleItem}

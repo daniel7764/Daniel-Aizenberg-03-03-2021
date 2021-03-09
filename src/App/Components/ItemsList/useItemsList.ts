@@ -28,6 +28,10 @@ const useItemsList = (parameters: useItemsListInCome): useItemsListOutCome => {
         }
     }
 
+    const getSortedItems = (): Item[] => {
+        return storeItems.slice().sort((itemA: Item, itemB: Item) => itemA.deliveryDate.getTime() - itemB.deliveryDate.getTime());
+    }
+
     const getCurrExChangeRates = async () => {
         try {
             const apiResponse = await axios.get(
@@ -51,7 +55,7 @@ const useItemsList = (parameters: useItemsListInCome): useItemsListOutCome => {
         });
     }
 
-    return { updateNotReceivedItemsList, getCurrExChangeRates };
+    return { updateNotReceivedItemsList, getCurrExChangeRates, getSortedItems };
 }
 
 interface useItemsListInCome {
@@ -62,7 +66,7 @@ interface useItemsListInCome {
 interface useItemsListOutCome {
     updateNotReceivedItemsList: (receivedId: number) => void;
     getCurrExChangeRates: () => void;
-
+    getSortedItems: () => Item[];
 }
 
 export default useItemsList;

@@ -9,7 +9,7 @@ export const allStoreItems: Item[] = [
     {
         id: 0,
         name: 'Iphone 12',
-        deliveryDate: new Date(),
+        deliveryDate: new Date('2021-04-01'),
         isReceived: false,
         priceILS: 100,
         priceUSD: 0,
@@ -18,7 +18,7 @@ export const allStoreItems: Item[] = [
     {
         id: 1,
         name: 'GoPro',
-        deliveryDate: new Date(),
+        deliveryDate: new Date('2020-10-11'),
         isReceived: false,
         priceILS: 100,
         priceUSD: 0,
@@ -27,7 +27,7 @@ export const allStoreItems: Item[] = [
     {
         id: 2,
         name: 'Garmin Watch',
-        deliveryDate: new Date(),
+        deliveryDate: new Date('2021-02-11'),
         isReceived: true,
         priceILS: 100,
         priceUSD: 0,
