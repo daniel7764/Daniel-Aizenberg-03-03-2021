@@ -1,0 +1,4 @@
+{
+  "apiInterval": 10000,
+  "apiUrl": "https://api.exchangeratesapi.io/latest"
+}

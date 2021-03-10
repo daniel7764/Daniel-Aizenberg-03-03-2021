@@ -1,18 +1,14 @@
-import React, {useContext, useEffect, useState} from 'react';
+import React, { useEffect, useState} from 'react';
 
 import useItemsList from './useItemsList';
 
 import { Item } from 'Models/Item';
 import useStyles from './ListStyles';
 import StoreItem from '../StoreItem/StoreItem';
-import {StoreItemsContext} from 'Context/StoreItemsContext';
-import {StoreItemsContextType} from 'Context/StoreItemsContextType';
-
-const apiInterval = process.env.REACT_APP_API_INTERVAL;
+import { apiInterval } from '../../../config.json';
 
 const ItemsList: React.FC<Props> = (itemsListProps: Props): JSX.Element => {
     const classes = useStyles();
-    const { storeItems } = useContext(StoreItemsContext) as StoreItemsContextType;
     const [shekelToUSDExchangeRate, setShekelToUSDExchangeRate] = useState<number>(0);
     const { updateNotReceivedItemsList, getCurrExChangeRates, getSortedItems } = useItemsList({ shekelToUSDExchangeRate, setShekelToUSDExchangeRate });
 

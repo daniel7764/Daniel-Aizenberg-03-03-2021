@@ -3,6 +3,7 @@ import Swal from 'sweetalert2';
 import React, { useContext } from 'react';
 
 import { Item } from 'Models/Item';
+import { apiUrl } from '../../../config.json';
 import { StoreItemsContext} from 'Context/StoreItemsContext';
 import {ExchangeRatesResponse} from 'Models/ExchangeRatesResponse';
 import { StoreItemsContextType } from 'Context/StoreItemsContextType';
@@ -10,7 +11,6 @@ import { StoreItemsContextType } from 'Context/StoreItemsContextType';
 const USD_SYMBOL = 'USD';
 const ILS_SYMBOL = 'ILS';
 const OK_STATUS = 200;
-const apiUrl = process.env.REACT_APP_API_URL;
 
 const useItemsList = (parameters: useItemsListInCome): useItemsListOutCome => {
     const { storeItems, setStoreItems } = useContext(StoreItemsContext) as StoreItemsContextType;
